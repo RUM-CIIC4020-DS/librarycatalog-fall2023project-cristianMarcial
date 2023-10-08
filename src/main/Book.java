@@ -53,7 +53,7 @@ public class Book {
 		/* This is supposed to follow the format
 		 * {TITLE} By {AUTHOR}
 		 * Both the title and author are in uppercase. */
-		return title.toUpperCase() + " BY " + author.toUpperCase() + "\n";
+		return title.toUpperCase() + " BY " + author.toUpperCase();
 	}
 	public float calculateFees() {
 		//According the rubric today's date is 2023/15/8 + 31 Days (23/15/9).
