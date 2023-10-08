@@ -10,6 +10,15 @@ public class Book {
 	LocalDate lastCheckOutDate;
 	boolean checkedOut;
 	
+	public Book(int id, String title, String author, String genre, LocalDate lastCheckOutDate, boolean checkedOut) {
+		this.id = id;
+		this.title = title;
+		this.author = author;
+		this.genre = genre;
+		this.lastCheckOutDate = lastCheckOutDate;
+		this.checkedOut = checkedOut;
+	}
+	
 	//Getters and Setters functions
 	public int getId() {
 		return id;
