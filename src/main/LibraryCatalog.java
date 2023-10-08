@@ -33,7 +33,7 @@ public class LibraryCatalog {
         String[] lineSplit = currentLine.split(",", 5); //This divides each element from the line's commas
         String[] ls4 = lineSplit[4].split("-", 2); // the index 4 of line split represents a date separated by 2 "-"
         LocalDate localDate = LocalDate.of(Integer.parseInt(ls4[0]), Integer.parseInt(ls4[1]), Integer.parseInt(ls4[2]));
-        boolean checkedOut = Boolean.parseBoolean(lineSplit[4]);
+        boolean checkedOut = Boolean.parseBoolean(lineSplit[5]);
         
 		while(line.readLine() != null) { //or currentLine /revise/
 			Book addBook = new Book(Integer.parseInt(lineSplit[0]) + 1, lineSplit[1], lineSplit[2], lineSplit[3], localDate, checkedOut);
