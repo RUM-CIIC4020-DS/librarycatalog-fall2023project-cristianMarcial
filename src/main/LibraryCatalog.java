@@ -141,9 +141,14 @@ public class LibraryCatalog {
 	public List<Book> searchForBook(FilterFunction<Book> func) {
 		return null;
 	}
+	public List<Book> searchForBooks(FilterFunction<Book> func) { //mine
+		return null;
+	}
 	
 	public List<User> searchForUsers(FilterFunction<User> func) {
 		return null;
 	}
+	
+	
 	
 }
