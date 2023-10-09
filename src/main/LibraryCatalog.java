@@ -222,14 +222,15 @@ public class LibraryCatalog {
 		 * The variable output has all the content we need to write to the report file.
 		 * PLACE CODE HERE!!
 		 */
-		FileWriter outputFile ; //
+		
         try {
-        	outputFile = new FileWriter("report.txt");
+        	FileWriter outputFile;
+        	outputFile = new FileWriter("report/report.txt");
         	
             BufferedWriter outputText = new BufferedWriter(outputFile); // Initializing file
             outputText.write(output); //Writing on it
             outputText.close(); // Closing file
-            System.out.println("Buffered Writer start writing :)");
+            //System.out.println("Buffered Writer start writing :)");
         } catch (IOException except) { except.printStackTrace(); }
 	}
 	
