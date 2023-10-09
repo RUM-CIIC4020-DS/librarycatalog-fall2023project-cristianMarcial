@@ -224,7 +224,10 @@ public class LibraryCatalog {
 		 */
 		
         try {
-            BufferedWriter outputText = new BufferedWriter(new FileWriter("report/prueba.txt")); // Initializing file
+        	FileWriter outputFile;
+        	outputFile = new FileWriter("report/prueba.txt");
+        	
+            BufferedWriter outputText = new BufferedWriter(outputFile); // Initializing file
             outputText.write(output); //Writing on it
             outputText.close(); // Closing file
             //System.out.println("Buffered Writer start writing :)");
