@@ -225,12 +225,11 @@ public class LibraryCatalog {
 		
         try {
         	FileWriter outputFile;
-        	outputFile = new FileWriter("report/prueba.txt");
+        	outputFile = new FileWriter("report/report.txt");
         	
             BufferedWriter outputText = new BufferedWriter(outputFile); // Initializing file
             outputText.write(output); //Writing on it
             outputText.close(); // Closing file
-            //System.out.println("Buffered Writer start writing :)");
         } catch (IOException except) { except.printStackTrace(); }
 	}
 	
