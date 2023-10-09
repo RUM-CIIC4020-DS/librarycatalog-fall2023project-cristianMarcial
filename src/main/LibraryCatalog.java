@@ -15,34 +15,78 @@ import interfaces.FilterFunction;
 import interfaces.List;
 
 public class LibraryCatalog {
-	private List<Book> catalog = getBooksFromFiles(); //a List of books that this library have
-	private List<User> users = getUsersFromFiles(); //a List of the clients of this library
-		
-	public LibraryCatalog() throws IOException {
-		
-	}
+	/**
+	 * "catalog" variable is a list of books that this library have,
+	 * and "users" is a list of the clients of this library
+	 */
+	private List<Book> catalog = getBooksFromFiles();
+	private List<User> users = getUsersFromFiles(); 
+	
+	//Constructor
+	public LibraryCatalog() throws IOException {}
 	
 	//Getters and Setters
 	private List<Book> getBooksFromFiles() throws IOException {
-		List<Book> bookList = new ArrayList<Book>(0); //revise el 0.
+		/*
+		 * The bookList will contain all Books from catalog.csv 
+		 */
+		List<Book> bookList = new ArrayList<Book>(); 
 		
+		/*
+		 * This section inside the getBooksFromFiles function have a collection of variables which divides
+		 * the lines of the document which is being read. the variable "line" loads the documents itself. The 
+		 * variable currentLine is the line which is currently being iterated by the while loop below.
+		 */
 		BufferedReader line = new BufferedReader (new FileReader("data/catalog.csv"));
-		String currentLine = line.readLine(); //Line of the catalog.csv file which is being read.
-		line.readLine();
-		
-        String[] lineSplit = currentLine.split(",", 5); //This divides each element from the line's commas
-        String[] ls4 = lineSplit[4].split("-", 2); // the index 4 of line split represents a date separated by 2 "-"
-        LocalDate localDate = LocalDate.of(Integer.parseInt(ls4[0]), Integer.parseInt(ls4[1]), Integer.parseInt(ls4[2]));
-        boolean checkedOut = Boolean.parseBoolean(lineSplit[5]);
+		String currentLine;
+		line.readLine(); //The first line don't represent a book, so is iterated before the following loop starts.
         
-		while(line.readLine() != null) { //or currentLine /revise/
-			Book addBook = new Book(Integer.parseInt(lineSplit[0]) + 1, lineSplit[1], lineSplit[2], lineSplit[3], localDate, checkedOut);
+		while((currentLine = line.readLine()) != null) { 
+			/*
+			 * This while loop iterates through every line until reaches the end. Inside of it there is the variable "lineSplit", 
+			 * which divides "currentLine" variable from the line's commas in order to have each books parameters. The fifty parameter 
+			 * of the book Class have a date separated by 2 "-" so lineSplit[4] has to be split in a String Array called "ls4" of 3 
+			 * indexes which represent the year, month and day.
+			 */
+	        String[] lineSplit = currentLine.split(",", 6); 
+	        String[] ls4 = lineSplit[4].split("-", 3); 
+	        
+	        LocalDate localDate = LocalDate.of(Integer.parseInt(ls4[0]), Integer.parseInt(ls4[1]), Integer.parseInt(ls4[2]));
+	        boolean checkedOut = Boolean.parseBoolean(lineSplit[5]);
+	        
+			Book addBook = new Book(Integer.parseInt(lineSplit[0]), lineSplit[1], lineSplit[2], lineSplit[3], localDate, checkedOut);
 			bookList.add(addBook);
-		} return bookList;
+		} 
+		return bookList;
 	}
 	
 	private List<User> getUsersFromFiles() throws IOException {
-		return null;
+		List<User> userList = new ArrayList<User>();
+		
+		BufferedReader line = new BufferedReader (new FileReader("data/user.csv"));
+		String currentLine; //Line of the catalog.csv file which is being read.
+		line.readLine();
+		
+		while((currentLine = line.readLine()) != null) { //or currentLine /revise/
+	        String[] lineSplit = currentLine.split(",");
+	        List<Book> books = new ArrayList<Book>();
+	        
+	        if(lineSplit.length > 2) {
+	        	String ls = lineSplit[2].replaceAll("\\{", ""); // the index 2 of line split represents the books id surrounded by "{}".
+	        	String lsB = ls.replaceAll("}", ""); 
+	        	String[] ls2 = lsB.split(" "); //This divides the books surrounded by "{}" using the spaces.
+		        
+		        /*
+		         * This for loop search for the books that the user have
+		         */
+	        	for(int j = 0; j < ls2.length; j++)
+		        	books.add(catalog.get( Integer.parseInt(ls2[j])-1 ));
+	        }
+	        
+			User addUser = new User(Integer.parseInt(lineSplit[0]), lineSplit[1], books);
+			userList.add(addUser);
+		} 
+		return userList;
 	}
 	
 	public List<Book> getBookCatalog() {
@@ -59,15 +103,23 @@ public class LibraryCatalog {
 	}
 	
 	public void removeBook(int id) {
-		return;
+		catalog.remove(id);
 	}	
 	
 	public boolean checkOutBook(int id) {
-		return true;
+		if(catalog.get(id)!=null) {
+			if(!catalog.get(id).isCheckedOut()) {
+				catalog.get(id).setLastCheckOut(LocalDate.of(2023, 9, 15));
+				return true;
+			}
+		} return false;
 	}
 	
 	public boolean returnBook(int id) {
-		return true;
+		if(!catalog.get(id).isCheckedOut()) {
+			catalog.get(id).setCheckedOut(true);
+			return true;
+		} return false;
 	}
 	
 	public boolean getBookAvailability(int id) {
@@ -77,7 +129,7 @@ public class LibraryCatalog {
 	public int bookCount(String title) {
 		int count = 0; //This counts how many books of a specified genre are found.
 		for(int i = 0; i < catalog.size(); i++) 
-			if(catalog.get(i).getGenre()==title) count++;
+			if(catalog.get(i).getGenre().equals(title)) count++;
 		return count;
 	}
 	
@@ -100,7 +152,7 @@ public class LibraryCatalog {
 		output += "Adventure\t\t\t\t\t" +"("+ bookCount("Adventure") +")"+ "\n"; //*Place here the amount of adventure books*
 		output += "Fiction\t\t\t\t\t\t" +"("+ bookCount("Fiction") +")"+ "\n"; //(/*Place here the amount of fiction books*/)
 		output += "Classics\t\t\t\t\t" +"("+ bookCount("Classics") +")"+ "\n"; //(/*Place here the amount of classics books*/)
-		output += "Mystery\t\t\t\t\t\t" +"("+ bookCount("Mistery") +")"+ "\n"; //(/*Place here the amount of mystery books*/)
+		output += "Mystery\t\t\t\t\t\t" +"("+ bookCount("Mystery") +")"+ "\n"; //(/*Place here the amount of mystery books*/)
 		output += "Science Fiction\t\t\t\t\t" +"("+ bookCount("Science Fiction") +")"+ "\n"; //(/*Place here the amount of science fiction books*/)
 		output += "====================================================\n";
 		output += "\t\t\tTOTAL AMOUNT OF BOOKS\t" +"("+ catalog.size() +")"+ "\n\n"; //(/*Place here the total number of books*/)
@@ -116,7 +168,6 @@ public class LibraryCatalog {
 		 * 
 		 * PLACE CODE HERE
 		 */
-		
 		int checkedOutCounter = 0;
 		for(int i = 0; i < getBookCatalog().size(); i++) 
 			if(catalog.get(i).isCheckedOut()) {
@@ -125,8 +176,7 @@ public class LibraryCatalog {
 			}
 		
 		output += "====================================================\n";
-		output += "\t\t\tTOTAL AMOUNT OF BOOKS\t" +"("+ checkedOutCounter +")"+ "\n\n"; // (/*Place here the total number of books that are checked out*/) +
-		
+		output += "\t\t\tTOTAL AMOUNT OF BOOKS\t" +"("+ checkedOutCounter +")"+ "\n\n";
 		
 		/*
 		 * Here we will print the users the owe money.
@@ -147,19 +197,40 @@ public class LibraryCatalog {
 		 * 
 		 * PLACE CODE HERE!
 		 */
-
+		float totalDue = 0.0f;
+		
+		for(int i = 0; i < getUsers().size(); i++) {
+			float fee = 0.0f;
+			List<Book> currentBookList = getUsers().get(i).getCheckedOutList();
+			
+			if(currentBookList.size()>0) {
+				for(int j = 0; j < currentBookList.size(); j++) 
+					fee += currentBookList.get(j).calculateFees();
+				if(fee > 0) 
+					output += getUsers().get(i).getName() + "\t\t\t\t\t" + "$" + String.format("%.2f",fee) + "\n";
+				totalDue+=fee;
+			}
+		}
 			
 		output += "====================================================\n";
-		output += "\t\t\t\tTOTAL DUE\t$" + " ... " + "\n\n\n"; // (/*Place here the total amount of money owed to the library.*/) 
+		output += "\t\t\t\tTOTAL DUE\t$" + String.format("%.2f",totalDue) + "\n\n\n"; /* Total amount of money owed to the library. */
 		output += "\n\n";
-		System.out.println(output);// You can use this for testing to see if the report is as expected.
+		//System.out.println(output);// You can use this for testing to see if the report is as expected.
 		
 		/*
 		 * Here we will write to the file. 
 		 * The variable output has all the content we need to write to the report file.
 		 * PLACE CODE HERE!!
 		 */
-		
+		FileWriter outputFile ; //
+        try {
+        	outputFile = new FileWriter("report.txt");
+        	
+            BufferedWriter outputText = new BufferedWriter(outputFile); // Initializing file
+            outputText.write(output); //Writing on it
+            outputText.close(); // Closing file
+            System.out.println("Buffered Writer start writing :)");
+        } catch (IOException except) { except.printStackTrace(); }
 	}
 	
 	/*
