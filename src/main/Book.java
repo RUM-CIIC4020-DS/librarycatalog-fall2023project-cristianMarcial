@@ -5,7 +5,7 @@ import java.time.temporal.ChronoUnit;
 
 /**
  * In this class there are 4 fields: Variables, Constructor, Getters and Setters, and General 
- * Functions.
+ * Methods.
  * 
  * The Variables field have private variables which store information about the books. The variable
  * "id" holds a Integer ID which represents every book; the variables "title", "author" &
@@ -17,6 +17,8 @@ import java.time.temporal.ChronoUnit;
  * 
  * Each variable can be obtained and changed with the functions on the "Getters and
  * Setters" (line 39) field and they are initialized by the Constructor function (line 29).
+ * 
+ * @author  Cristian Marcial cristian.marcial@upr.edu
  */
 public class Book {
 	

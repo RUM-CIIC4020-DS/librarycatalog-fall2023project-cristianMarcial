@@ -14,11 +14,15 @@ import data_structures.SinglyLinkedList;
 import interfaces.FilterFunction;
 import interfaces.List;
 
+/**
+ * 
+ * @author Cristian Marcial cristian.marcial@upr.edu
+ */
 public class LibraryCatalog {
 	/**
 	 * Variables
 	 * "catalog" private variable is a List of books that this library have, and "users" is a List of the
-	 *  clients of this library. Both use its respective function to obtain the information from the documents.
+	 *  clients of this library. Both use its respective method to obtain the information from the documents.
 	 */
 	private List<Book> catalog = getBooksFromFiles();
 	private List<User> users = getUsersFromFiles(); 
@@ -140,8 +144,8 @@ public class LibraryCatalog {
 		return count;
 	}
 	
-	/*
-	 * 
+	/**
+	 *
 	 */
 	public void generateReport() throws IOException {
 		
@@ -159,13 +163,13 @@ public class LibraryCatalog {
 		 * How you do the count is up to you. You can make a method, use the searchForBooks()
 		 * function or just do the count right here.
 		 */
-		output += "Adventure\t\t\t\t\t" +"("+ bookCount("Adventure") +")"+ "\n"; //*Place here the amount of adventure books*
-		output += "Fiction\t\t\t\t\t\t" +"("+ bookCount("Fiction") +")"+ "\n"; //(/*Place here the amount of fiction books*/)
-		output += "Classics\t\t\t\t\t" +"("+ bookCount("Classics") +")"+ "\n"; //(/*Place here the amount of classics books*/)
-		output += "Mystery\t\t\t\t\t\t" +"("+ bookCount("Mystery") +")"+ "\n"; //(/*Place here the amount of mystery books*/)
-		output += "Science Fiction\t\t\t\t\t" +"("+ bookCount("Science Fiction") +")"+ "\n"; //(/*Place here the amount of science fiction books*/)
+		output += "Adventure\t\t\t\t\t" + bookCount("Adventure") + "\n"; /*Place here the amount of adventure books*/
+		output += "Fiction\t\t\t\t\t\t" + bookCount("Fiction") + "\n"; /*Place here the amount of fiction books*/
+		output += "Classics\t\t\t\t\t" + bookCount("Classics") + "\n"; /*Place here the amount of classics books*/
+		output += "Mystery\t\t\t\t\t\t" + bookCount("Mystery") + "\n"; /*Place here the amount of mystery books*/
+		output += "Science Fiction\t\t\t\t\t" + bookCount("Science Fiction") + "\n"; /*Place here the amount of science fiction books*/
 		output += "====================================================\n";
-		output += "\t\t\tTOTAL AMOUNT OF BOOKS\t" +"("+ catalog.size() +")"+ "\n\n"; //(/*Place here the total number of books*/)
+		output += "\t\t\tTOTAL AMOUNT OF BOOKS\t" + catalog.size() + "\n\n"; /*Place here the total number of books*/
 		
 		/* * This part prints the books that are currently checked out */
 		output += "\t\t\tBOOKS CURRENTLY CHECKED OUT\n\n";
@@ -186,7 +190,7 @@ public class LibraryCatalog {
 			}
 		
 		output += "====================================================\n";
-		output += "\t\t\tTOTAL AMOUNT OF BOOKS\t" +"("+ checkedOutCounter +")"+ "\n\n";
+		output += "\t\t\tTOTAL AMOUNT OF BOOKS\t" + checkedOutCounter + "\n\n";
 		
 		/*
 		 * Here we will print the users the owe money.
