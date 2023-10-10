@@ -16,8 +16,9 @@ import interfaces.List;
 
 public class LibraryCatalog {
 	/**
-	 * "catalog" variable is a list of books that this library have,
-	 * and "users" is a list of the clients of this library
+	 * Variables
+	 * "catalog" private variable is a List of books that this library have, and "users" is a List of the
+	 *  clients of this library. Both use its respective function to obtain the information from the documents.
 	 */
 	private List<Book> catalog = getBooksFromFiles();
 	private List<User> users = getUsersFromFiles(); 
@@ -25,32 +26,38 @@ public class LibraryCatalog {
 	//Constructor
 	public LibraryCatalog() throws IOException {}
 	
-	//Getters and Setters
+	//Getters, Setters and other general functions
 	private List<Book> getBooksFromFiles() throws IOException {
-		/*
-		 * The bookList will contain all Books from catalog.csv 
+		/**
+		 * The bookList variable is a List that contains all Books from catalog.csv 
 		 */
 		List<Book> bookList = new ArrayList<Book>(); 
 		
-		/*
+		/**
 		 * This section inside the getBooksFromFiles function have a collection of variables which divides
-		 * the lines of the document which is being read. the variable "line" loads the documents itself. The 
-		 * variable currentLine is the line which is currently being iterated by the while loop below.
+		 * the lines of the document which is being read. the variable "line" loads the documents itself making use of
+		 * the BufferedReader class. The variable "currentLine" is the line which is currently being iterated by the 
+		 * while loop below.
 		 */
-		BufferedReader line = new BufferedReader (new FileReader("data/catalog.csv"));
+		BufferedReader line = new BufferedReader(new FileReader("data/catalog.csv"));
 		String currentLine;
 		line.readLine(); //The first line don't represent a book, so is iterated before the following loop starts.
         
+		/*
+		 * This while loop iterates through every line until reaches the end of the document (which there is no more lines,
+		 * so currentLine == null). Inside of it there is the variable "lineSplit", which divides "currentLine" variable 
+		 * from the line's commas in order to have each books parameters in separated strings inside a String Array. The fifty
+		 * parameter of the book Class have a date separated by 2 "-" so lineSplit[4] has to be split in a String Array of 3 
+		 * indexes called "ls4" which its 3 indexes represent a year, a month and a day.
+		 */
 		while((currentLine = line.readLine()) != null) { 
-			/*
-			 * This while loop iterates through every line until reaches the end. Inside of it there is the variable "lineSplit", 
-			 * which divides "currentLine" variable from the line's commas in order to have each books parameters. The fifty parameter 
-			 * of the book Class have a date separated by 2 "-" so lineSplit[4] has to be split in a String Array called "ls4" of 3 
-			 * indexes which represent the year, month and day.
-			 */
 	        String[] lineSplit = currentLine.split(",", 6); 
 	        String[] ls4 = lineSplit[4].split("-", 3); 
 	        
+	        /**
+	         * The 3 indexes of "ls4" String Array represent a year, month and a day, so they are passed to the variable
+	         * "localDate" which makes use of the LocalDate Class to be passed as a argument in the addBook variable.
+	         */
 	        LocalDate localDate = LocalDate.of(Integer.parseInt(ls4[0]), Integer.parseInt(ls4[1]), Integer.parseInt(ls4[2]));
 	        boolean checkedOut = Boolean.parseBoolean(lineSplit[5]);
 	        
@@ -133,6 +140,9 @@ public class LibraryCatalog {
 		return count;
 	}
 	
+	/*
+	 * 
+	 */
 	public void generateReport() throws IOException {
 		
 		String output = "\t\t\t\tREPORT\n\n";
@@ -215,25 +225,22 @@ public class LibraryCatalog {
 		output += "====================================================\n";
 		output += "\t\t\t\tTOTAL DUE\t$" + String.format("%.2f",totalDue) + "\n\n\n"; /* Total amount of money owed to the library. */
 		output += "\n\n";
-		//System.out.println(output);// You can use this for testing to see if the report is as expected.
+		//System.out.println(output); // You can use this for testing to see if the report is as expected.
 		
-		/*
+		/**
 		 * Here we will write to the file. 
 		 * The variable output has all the content we need to write to the report file.
 		 * PLACE CODE HERE!!
 		 */
 		
         try {
-        	FileWriter outputFile;
-        	outputFile = new FileWriter("report/report.txt");
-        	
-            BufferedWriter outputText = new BufferedWriter(outputFile); // Initializing file
+            BufferedWriter outputText = new BufferedWriter(new FileWriter("report/report.txt")); // Initializing file
             outputText.write(output); //Writing on it
             outputText.close(); // Closing file
         } catch (IOException except) { except.printStackTrace(); }
 	}
 	
-	/*
+	/**
 	 * BONUS Methods
 	 * You are not required to implement these, but they can be useful for
 	 * other parts of the project.
