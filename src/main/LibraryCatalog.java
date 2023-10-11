@@ -15,8 +15,8 @@ import interfaces.FilterFunction;
 import interfaces.List;
 
 /**
- * This class make use of the List Class to store in two private variables the user list (users) and 
- * the book list (catalog) written in the files from "/data" folder. This files are load and then stored
+ * This class make use of the List Class to store in two private variables the user list (users) and the 
+ * book list (catalog) written in the files from the data folder. This files are loaded and then stored
  * in their respective variables by two separated methods; getBookFromFiles() and getUsersFromFiles().
  * 
  * @author Cristian Marcial cristian.marcial@upr.edu
@@ -24,7 +24,7 @@ import interfaces.List;
 public class LibraryCatalog {
 	
 	/**
-	 * List of books that this library have, 
+	 * List of books that this library have.
 	 */
 	private List<Book> catalog = getBooksFromFiles();
 	
@@ -38,10 +38,15 @@ public class LibraryCatalog {
 	
 	//Getters, Setters and other general methods
 	
-	
+	/**
+	 * This method will read the file catalog.csv in the data folder and then it will generate a Book ArrayList which its
+	 * going to be returned.
+	 * 
+	 * @return "bookList" variable which is the Book ArrayList generated.
+	 */
 	private List<Book> getBooksFromFiles() throws IOException {
 		/**
-		 * The bookList variable is a List that contains all Books from catalog.csv 
+		 * The bookList variable is a ArrayList that contains all Books from catalog.csv 
 		 */
 		List<Book> bookList = new ArrayList<Book>(); 
 		
@@ -79,6 +84,12 @@ public class LibraryCatalog {
 		return bookList;
 	}
 	
+	/**
+	 * This method will read the file users.csv in the data folder and then it will generate a User ArrayList which its 
+	 * going to be returned.
+	 * 
+	 * @return "userList" variable which is the User ArrayList generated.
+	 */
 	private List<User> getUsersFromFiles() throws IOException {
 		List<User> userList = new ArrayList<User>();
 		
@@ -103,10 +114,10 @@ public class LibraryCatalog {
 	        
 	        /**
 	         * If a user have books, it has a third field in its respective document separated by a third comma. This third
-	         * field have the id's of the books which the user has and they have to be passed to The List books.
+	         * field have the id's of the books which the user has and they have to be passed to The List "books"m.
 	         */
 	        if(lineSplit.length > 2) {
-	        	String ls = lineSplit[2].replaceAll("\\{", ""); // the index 2 of line split represents the books id surrounded by "{}".
+	        	String ls = lineSplit[2].replaceAll("\\{", ""); // The index 2 of line split represents the books id surrounded by "{}".
 	        	String lsB = ls.replaceAll("}", ""); 
 	        	String[] ls2 = lsB.split(" "); //This divides the books surrounded by "{}" using the spaces.
 		        
@@ -123,14 +134,34 @@ public class LibraryCatalog {
 		return userList;
 	}
 	
+	/**
+	 * Returns the value held in the private variable "catalog".
+	 * 
+	 * @return A Book ArrayList held in the "catalog" variable.
+	 */
 	public List<Book> getBookCatalog() {
 		return catalog;
 	}
 	
+	/**
+	 * Returns the value held in the private variable "users".
+	 * 
+	 * @return A User ArrayList held in the "users" variable.
+	 */
 	public List<User> getUsers() {
 		return users;
 	}
 	
+	/**
+	 * This adds a Book with a given title, author and genre on the last index of the Book ArrayList held in the
+	 * private variable "catalog", assigning to each added book an index based on their index position in the ArrayList. 
+	 * It also assigned to each book today's date (September 9, 2023) as its last checked out date and its assumed that
+	 * is not checked out.
+	 * 
+	 * @param title String representing the title of the added book.
+	 * @param author String representing the author of the added book.
+	 * @param genre String representing the genre of the added book.
+	 */
 	public void addBook(String title, String author, String genre) {
 		Book addedBook = new Book(catalog.size() + 1, title,  author,  genre, LocalDate.of(2023, 9, 15), false);
 		catalog.add(addedBook);
@@ -168,7 +199,9 @@ public class LibraryCatalog {
 	}
 	
 	/**
-	 *
+	 * This method store in a String called output a report about the content which is currently in the library. 
+	 * Later, the content of the output variable is displayed in a text file called report.txt; the content of it 
+	 * is written by making use of the BufferedWrite Class.
 	 */
 	public void generateReport() throws IOException {
 		
@@ -205,7 +238,7 @@ public class LibraryCatalog {
 		
 		output += "\n\n\t\tUSERS THAT OWE BOOK FEES\n\n";
 		
-		/*
+		/**
 		 * Sum of all fees of each user.
 		 */
 		float totalDue = 0.0f;
@@ -229,7 +262,11 @@ public class LibraryCatalog {
 		}
 			
 		output += "====================================================\n";
-		output += "\t\t\t\tTOTAL DUE\t$" + String.format("%.2f",totalDue) + "\n\n\n"; /* Total amount of money owed to the library. */
+		
+		/**
+		 * Total amount of money owed to the library. 
+		 */
+		output += "\t\t\t\tTOTAL DUE\t$" + String.format("%.2f",totalDue) + "\n\n\n"; 
 		output += "\n\n";
 		
 		/**
