@@ -15,22 +15,30 @@ import interfaces.FilterFunction;
 import interfaces.List;
 
 /**
+ * This class make use of the List Class to store in two private variables the user list (users) and 
+ * the book list (catalog) written in the files from "/data" folder. This files are load and then stored
+ * in their respective variables by two separated methods; getBookFromFiles() and getUsersFromFiles().
  * 
  * @author Cristian Marcial cristian.marcial@upr.edu
  */
 public class LibraryCatalog {
+	
 	/**
-	 * Variables
-	 * "catalog" private variable is a List of books that this library have, and "users" is a List of the
-	 *  clients of this library. Both use its respective method to obtain the information from the documents.
+	 * List of books that this library have, 
 	 */
 	private List<Book> catalog = getBooksFromFiles();
+	
+	/**
+	 * List of the clients of this library.
+	 */
 	private List<User> users = getUsersFromFiles(); 
 	
 	//Constructor
 	public LibraryCatalog() throws IOException {}
 	
-	//Getters, Setters and other general functions
+	//Getters, Setters and other general methods
+	
+	
 	private List<Book> getBooksFromFiles() throws IOException {
 		/**
 		 * The bookList variable is a List that contains all Books from catalog.csv 
@@ -38,7 +46,7 @@ public class LibraryCatalog {
 		List<Book> bookList = new ArrayList<Book>(); 
 		
 		/**
-		 * This section inside the getBooksFromFiles function have a collection of variables which divides
+		 * This section inside the getBooksFromFiles method have a collection of variables which divides
 		 * the lines of the document which is being read. the variable "line" loads the documents itself making use of
 		 * the BufferedReader class. The variable "currentLine" is the line which is currently being iterated by the 
 		 * while loop below.
@@ -49,8 +57,8 @@ public class LibraryCatalog {
         
 		/*
 		 * This while loop iterates through every line until reaches the end of the document (which there is no more lines,
-		 * so currentLine == null). Inside of it there is the variable "lineSplit", which divides "currentLine" variable 
-		 * from the line's commas in order to have each books parameters in separated strings inside a String Array. The fifty
+		 * so currentLine == null. Inside of it there is the variable "lineSplit", which divides "currentLine" variable 
+		 * from the line's commas in order to have each book parameters in separated strings inside a String Array. The fifty
 		 * parameter of the book Class have a date separated by 2 "-" so lineSplit[4] has to be split in a String Array of 3 
 		 * indexes called "ls4" which its 3 indexes represent a year, a month and a day.
 		 */
@@ -74,14 +82,29 @@ public class LibraryCatalog {
 	private List<User> getUsersFromFiles() throws IOException {
 		List<User> userList = new ArrayList<User>();
 		
+		/**
+		 * Like in the previous method, this section inside the getUsersFromFiles method have variables which divides
+		 * the lines of the document which is being read. the variable "line" loads the documents itself making use of
+		 * the BufferedReader class. The variable "currentLine" is the line which is currently being iterated by the 
+		 * while loop below.
+		 */
 		BufferedReader line = new BufferedReader (new FileReader("data/user.csv"));
-		String currentLine; //Line of the catalog.csv file which is being read.
+		String currentLine;
 		line.readLine();
 		
+		/*
+		 * This while loop iterates through every line until reaches the end of the document. Inside of it there is the 
+		 * variable "lineSplit", which divides "currentLine" variable from the line's commas in order to have each user 
+		 * parameters in separated strings inside a String Array.
+		 */
 		while((currentLine = line.readLine()) != null) { //or currentLine /revise/
 	        String[] lineSplit = currentLine.split(",");
 	        List<Book> books = new ArrayList<Book>();
 	        
+	        /**
+	         * If a user have books, it has a third field in its respective document separated by a third comma. This third
+	         * field have the id's of the books which the user has and they have to be passed to The List books.
+	         */
 	        if(lineSplit.length > 2) {
 	        	String ls = lineSplit[2].replaceAll("\\{", ""); // the index 2 of line split represents the books id surrounded by "{}".
 	        	String lsB = ls.replaceAll("}", ""); 
@@ -152,16 +175,9 @@ public class LibraryCatalog {
 		String output = "\t\t\t\tREPORT\n\n";
 		output += "\t\tSUMMARY OF BOOKS\n";
 		output += "GENRE\t\t\t\t\t\tAMOUNT\n";
-		/*
-		 * In this section you will print the amount of books per category.
-		 * 
-		 * Place in each parenthesis the specified count. 
-		 * 
-		 * Note this is NOT a fixed number, you have to calculate it because depending on the 
-		 * input data we use the numbers will differ.
-		 * 
-		 * How you do the count is up to you. You can make a method, use the searchForBooks()
-		 * function or just do the count right here.
+		
+		/**
+		 * In this field it will be printed the amount of books per category.
 		 */
 		output += "Adventure\t\t\t\t\t" + bookCount("Adventure") + "\n"; /*Place here the amount of adventure books*/
 		output += "Fiction\t\t\t\t\t\t" + bookCount("Fiction") + "\n"; /*Place here the amount of fiction books*/
@@ -171,16 +187,10 @@ public class LibraryCatalog {
 		output += "====================================================\n";
 		output += "\t\t\tTOTAL AMOUNT OF BOOKS\t" + catalog.size() + "\n\n"; /*Place here the total number of books*/
 		
-		/* * This part prints the books that are currently checked out */
 		output += "\t\t\tBOOKS CURRENTLY CHECKED OUT\n\n";
-		/*
-		 * Here you will print each individual book that is checked out.
-		 * 
-		 * Remember that the book has a toString() method. 
-		 * Notice if it was implemented correctly it should print the books in the 
-		 * expected format.
-		 * 
-		 * PLACE CODE HERE
+		
+		/**
+		 * Here it will be printed each individual book that is checked out.
 		 */
 		int checkedOutCounter = 0;
 		for(int i = 0; i < getBookCatalog().size(); i++) 
@@ -192,27 +202,19 @@ public class LibraryCatalog {
 		output += "====================================================\n";
 		output += "\t\t\tTOTAL AMOUNT OF BOOKS\t" + checkedOutCounter + "\n\n";
 		
-		/*
-		 * Here we will print the users the owe money.
-		 */
+		
 		output += "\n\n\t\tUSERS THAT OWE BOOK FEES\n\n";
+		
 		/*
-		 * Here you will print all the users that owe money.
-		 * The amount will be calculating taking into account 
-		 * all the books that have late fees.
-		 * 
-		 * For example if user Jane Doe has 3 books and 2 of them have late fees.
-		 * Say book 1 has $10 in fees and book 2 has $78 in fees.
-		 * 
-		 * You would print: Jane Doe\t\t\t\t\t$88.00
-		 * 
-		 * Notice that we place 5 tabs between the name and fee and 
-		 * the fee should have 2 decimal places.
-		 * 
-		 * PLACE CODE HERE!
+		 * Sum of all fees of each user.
 		 */
 		float totalDue = 0.0f;
 		
+		/**
+		 * Here it will be printed all the users that owe money.
+		 * The amount will be calculating taking into account 
+		 * all the books that have late fees.
+		 */
 		for(int i = 0; i < getUsers().size(); i++) {
 			float fee = 0.0f;
 			List<Book> currentBookList = getUsers().get(i).getCheckedOutList();
@@ -229,14 +231,11 @@ public class LibraryCatalog {
 		output += "====================================================\n";
 		output += "\t\t\t\tTOTAL DUE\t$" + String.format("%.2f",totalDue) + "\n\n\n"; /* Total amount of money owed to the library. */
 		output += "\n\n";
-		//System.out.println(output); // You can use this for testing to see if the report is as expected.
 		
 		/**
-		 * Here we will write to the file. 
-		 * The variable output has all the content we need to write to the report file.
-		 * PLACE CODE HERE!!
+		 * Here it will be written to the file "report.txt" in the "/report" folder.
+		 * The variable output has all the content needed to write to the report file.
 		 */
-		
         try {
             BufferedWriter outputText = new BufferedWriter(new FileWriter("report/report.txt")); // Initializing file
             outputText.write(output); //Writing on it

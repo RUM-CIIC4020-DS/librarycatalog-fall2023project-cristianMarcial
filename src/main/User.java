@@ -4,20 +4,29 @@ import interfaces.List;
 
 /**
  * In this class there are 3 fields: Variables, Constructor, and Getters and Setters.
- * 
- * This field have private variables which store information about the user. The variable
- * "id" holds a Integer ID which represents every user, the variable "name" holds a String 
- * representing the name of the user and the variable "books" is a List which holds elements
- * of the Book Class. Each variable can be obtained with the functions on the "Getters and
- * Setters"(line 28) field and they are initialized by the Constructor function (line 21).
+ * Variable's field have private variables which store information about the user.
+ * Each variable can be obtained with the methods on the "Getters and Setters"
+ * (line 39) field and they are initialized by the Constructor function (line 32).
  * 
  * @author Cristian Marcial cristian.marcial@upr.edu
  */
 public class User {
 	
 	//Variables
+	
+	/**
+	 * This holds a Integer ID which represents every user.
+	 */
 	private int id;
+	
+	/**
+	 * This holds a String representing the name of the user
+	 */
 	private String name;
+	
+	/**
+	 * This is a List which holds elements of the Book Class.
+	 */
 	private List<Book> books;
 	
 	//Constructor
@@ -28,21 +37,57 @@ public class User {
 	}
 	
 	//Getters and Setters
+	
+	/**
+	 * Returns the value held in the private variable of its class "id".
+	 * 
+	 * @return the id of the book held in the variable "id".
+	 */
 	public int getId() {
 		return id;
 	}
+	
+	/**
+	 * Sets the value of the local variable "id" with the given argument.
+	 * 
+	 * @param id an integer for replacing the value held in the local variable "id".
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	/**
+	 * Returns the value held in the private variable of its class "name".
+	 * 
+	 * @return a String held in the variable "name".
+	 */
 	public String getName() {
 		return name;
 	}
+	
+	/**
+	 * Sets the value of the local variable "name" with the given argument.
+	 * 
+	 * @param name a String for replacing the value held in the local variable "name".
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/**
+	 * Returns The List held in the private variable of its class "book".
+	 * 
+	 * @return A List held in the "books" variable.
+	 */
 	public List<Book> getCheckedOutList() {
 		return books;
 	}
+	
+	/**
+	 * Replace The List of the local variable "books" with the given argument.
+	 * 
+	 * @param checkedOutList A List for replacing the value held in the local variable "books".
+	 */
 	public void setCheckedOutList(List<Book> checkedOutList) {
 		this.books = checkedOutList;
 	}	
