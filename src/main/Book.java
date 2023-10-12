@@ -4,10 +4,11 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 /**
- * In this class there are 4 fields: Variables, Constructor, Getters and Setters, and General 
- * Methods. The Variable's field have private variables which store information about the books.
- * Each variable can be obtained and changed with the functions on the "Getters and
- * Setters" (line 52) field and they are initialized by the Constructor function (line 42).
+ * This class represent a single book in this library. In this class there are 4 fields: 
+ * Variables, Constructor, Getters and Setters, and General Methods. The Variable's field 
+ * have private variables which store information about the books. Each variable can be 
+ * obtained and changed with the methods on the "Getters and Setters" (line 51) field and 
+ * they are initialized by the constructor method (line 41).
  * 
  * @author Cristian Marcial cristian.marcial@upr.edu
  */
@@ -16,7 +17,7 @@ public class Book {
 	//Variables
 	
 	/**
-	 * This holds a Integer ID which represents every book
+	 * This holds a Integer ID which identifies every book in the catalog 
 	 */
 	private int id;
 	
@@ -27,15 +28,13 @@ public class Book {
 	private String title, author, genre;
 	
 	/**
-	 * By using the LocalDate Class, this holds the last date where someone
-	 * borrowed the book.
+	 * By using the LocalDate Class, this holds the last date where someone borrowed the book.
 	 */
 	private LocalDate lastCheckOutDate;
 	
 	/**
-	 * This is a boolean which represent if the book has been checked out 
-	 * (This status can be changed with methods at the LibraryCatalog Class such as 
-	 * checkOutBook method).
+	 * This is a boolean which represent if the book has been checked out (This status can 
+	 * be changed with methods at the LibraryCatalog Class such as checkOutBook method).
 	 */
 	private boolean checkedOut;
 	
@@ -63,7 +62,7 @@ public class Book {
 	/**
 	 * Sets the value of the variable "id" with the given argument.
 	 * 
-	 * @param id a String for replacing the value held in the local variable "id".
+	 * @param id a String for replacing the value held in the variable "id".
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -81,7 +80,7 @@ public class Book {
 	/**
 	 * Sets the value of the variable "title" with the given argument.
 	 * 
-	 * @param title a String for replacing the value held in the local variable "title".
+	 * @param title a String for replacing the value held in the variable "title".
 	 */
 	public void setTitle(String title) {
 		this.title = title;
@@ -97,9 +96,9 @@ public class Book {
 	}
 	
 	/**
-	 * Sets the value of the local variable "author" with the given argument.
+	 * Sets the value of the variable "author" with the given argument.
 	 * 
-	 * @param author a String for replacing the value held in the local variable "author".
+	 * @param author a String for replacing the value held in the variable "author".
 	 */
 	public void setAuthor(String author) {
 		this.author = author;
@@ -115,9 +114,9 @@ public class Book {
 	}
 	
 	/**
-	 * Sets the value of the local variable "genre" with the given argument.
+	 * Sets the value of the variable "genre" with the given argument.
 	 * 
-	 * @param genre a String for replacing the value held in the local variable "genre".
+	 * @param genre a String for replacing the value held in the variable "genre".
 	 */
 	public void setGenre(String genre) {
 		this.genre = genre;
@@ -133,7 +132,7 @@ public class Book {
 	}
 	
 	/**
-	 * Sets the value of the local variable "lastCheckOutDate" with the given argument.
+	 * Sets the value of the  variable "lastCheckOutDate" with the given argument.
 	 * 
 	 * @param lastCheckOut a value of LocalDate Class for replacing the value held in the
 	 * variable "lastCheckOut".
@@ -145,16 +144,16 @@ public class Book {
 	/**
 	 * This checks if the book was checked out or not.
 	 * 
-	 * @return checkedOut local variable.
+	 * @return the private variable of its class "checkedOut".
 	 */
 	public boolean isCheckedOut() {
 		return checkedOut;
 	}
 	
 	/**
-	 * Sets the value of the local variable "checkedOut" with the given argument.
+	 * Sets the value of the variable "checkedOut" with the given argument.
 	 * 
-	 * @param checkedOut a boolean for replacing the value held in the local variable "checkedOut".
+	 * @param checkedOut a boolean for replacing the value held in the variable "checkedOut".
 	 */
 	public void setCheckedOut(boolean checkedOut) {
 		this.checkedOut = checkedOut;
@@ -164,9 +163,9 @@ public class Book {
 	
 	/**
 	 * This method overrides the toString method and returns the information of the book
-	 * in the format: {TITLE} By {AUTHOR}. {TITLE} represents the String held in the
-	 * variable "title" and {AUTHOR} represents the String held in the variable "author".
-	 * Both Strings are returned in capital letters.
+	 * in a String in the format: {TITLE} By {AUTHOR}. {TITLE} represents the String held 
+	 * in the variable "title" and {AUTHOR} represents the String held in the variable 
+	 * "author". Both Strings are returned in capital letters.
 	 * 
 	 * @return title and author of the book.
 	 */
@@ -176,21 +175,22 @@ public class Book {
 	}
 	
 	/**
-	 * Returns how much money is owed in late fees. The fee is calculated taking  account of how 
-	 * many days has been passed since the last check out date. If the book has been checked out
-	 * for 31 days or more then the base fee is $10.00. Then an added $1.50 is owed per day passed 31.
+	 * Returns how much money is owed in late fees. The fee is calculated taking account how many 
+	 * days has been passed since the last check out date. If the book has been checked out for 31 
+	 * days or more then the base fee is $10.00. Then an added $1.50 is owed per day passed 31.
 	 * 
 	 * @return the calculated fee
 	 */
 	public float calculateFees() { 
+		
 		/**
-		 * This counts the days between today's date and the last date where
-		 * someone borrowed the book, which is represented by the variable "lastCheckedOutDate".
+		 * This counts the days between today's date and the last date where someone borrowed the book,
+		 * which is represented by the variable "lastCheckedOutDate".
 		 */
 		long daysPassed = lastCheckOutDate.until(LocalDate.of(2023, 9, 15), ChronoUnit.DAYS);
 		
 		/**
-		 * fee (if applicable) = base fee + 1.5 per additional day 
+		 * fee (if applicable) = base fee + 1.5 per additional day
 		 * According the rubric, today's date is 2023/16/8 + 31 days == (23/15/9).
 		 */
 		if(lastCheckOutDate.isBefore(LocalDate.of(2023, 8, 16))) 

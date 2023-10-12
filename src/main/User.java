@@ -3,10 +3,10 @@ package main;
 import interfaces.List;
 
 /**
- * In this class there are 3 fields: Variables, Constructor, and Getters and Setters.
- * Variable's field have private variables which store information about the user.
- * Each variable can be obtained with the methods on the "Getters and Setters"
- * (line 39) field and they are initialized by the Constructor function (line 32).
+ * This class represent a user from this library. In this class there are 3 fields: Variables, 
+ * Constructor, and Getters and Setters. Variable's field have private variables which store 
+ * information about the user. Each variable can be obtained with the methods on the "Getters
+ * and Setters" (line 39) field and they are initialized by the Constructor method (line 32).
  * 
  * @author Cristian Marcial cristian.marcial@upr.edu
  */
@@ -50,7 +50,7 @@ public class User {
 	/**
 	 * Sets the value of the local variable "id" with the given argument.
 	 * 
-	 * @param id an integer for replacing the value held in the local variable "id".
+	 * @param id an integer for replacing the value held in the variable "id".
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -68,7 +68,7 @@ public class User {
 	/**
 	 * Sets the value of the local variable "name" with the given argument.
 	 * 
-	 * @param name a String for replacing the value held in the local variable "name".
+	 * @param name a String for replacing the value held in the variable "name".
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -86,7 +86,7 @@ public class User {
 	/**
 	 * Replace The List of the local variable "books" with the given argument.
 	 * 
-	 * @param checkedOutList A List for replacing the value held in the local variable "books".
+	 * @param checkedOutList A List for replacing the value held in the variable "books".
 	 */
 	public void setCheckedOutList(List<Book> checkedOutList) {
 		this.books = checkedOutList;

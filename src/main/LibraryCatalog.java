@@ -15,9 +15,12 @@ import interfaces.FilterFunction;
 import interfaces.List;
 
 /**
- * This class make use of the List Class to store in two private variables the user list (users) and the 
- * book list (catalog) written in the files from the data folder. This files are loaded and then stored
- * in their respective variables by two separated methods; getBookFromFiles() and getUsersFromFiles().
+ * This class make use of the ArrayList Class to store in two private variables the user list (users) and the 
+ * book list (catalog) written in the files from the data folder. This files are loaded and then stored in 
+ * their respective variables by two separated methods: getBookFromFiles() and getUsersFromFiles(). In order to 
+ * realize this action, the BufferedReader Class is used. Finally, when they are already stored, a report about 
+ * the library and its books is written in a separated text file called "report.txt"; in order to do this, the 
+ * BufferedWrite Class was used.
  * 
  * @author Cristian Marcial cristian.marcial@upr.edu
  */
@@ -39,14 +42,15 @@ public class LibraryCatalog {
 	//Getters, Setters and other general methods
 	
 	/**
-	 * This method will read the file catalog.csv in the data folder and then it will generate a Book ArrayList which its
-	 * going to be returned.
+	 * This method will read the file catalog.csv in the data folder and then it will generate a Book ArrayList 
+	 * which it is going to be returned.
 	 * 
 	 * @return "bookList" variable which is the Book ArrayList generated.
 	 */
 	private List<Book> getBooksFromFiles() throws IOException {
+		
 		/**
-		 * The bookList variable is a ArrayList that contains all Books from catalog.csv 
+		 * This is a ArrayList that contains all Books from catalog.csv 
 		 */
 		List<Book> bookList = new ArrayList<Book>(); 
 		
@@ -62,10 +66,10 @@ public class LibraryCatalog {
         
 		/*
 		 * This while loop iterates through every line until reaches the end of the document (which there is no more lines,
-		 * so currentLine == null. Inside of it there is the variable "lineSplit", which divides "currentLine" variable 
-		 * from the line's commas in order to have each book parameters in separated strings inside a String Array. The fifty
-		 * parameter of the book Class have a date separated by 2 "-" so lineSplit[4] has to be split in a String Array of 3 
-		 * indexes called "ls4" which its 3 indexes represent a year, a month and a day.
+		 * so currentLine is null). Inside of it there is the variable "lineSplit", which divides "currentLine" variable from
+		 * the line's commas in order to have each book parameters in separated strings inside a String Array. The fifty 
+		 * parameter of the book Class have a date, which in the document it is separated by 2 "-" so lineSplit[4] has to be 
+		 * split in a String Array of 3 indexes called "ls4" which its 3 indexes represent a year, a month and a day.
 		 */
 		while((currentLine = line.readLine()) != null) { 
 	        String[] lineSplit = currentLine.split(",", 6); 
@@ -114,7 +118,7 @@ public class LibraryCatalog {
 	        
 	        /**
 	         * If a user have books, it has a third field in its respective document separated by a third comma. This third
-	         * field have the id's of the books which the user has and they have to be passed to The List "books"m.
+	         * field have the id's of the books which the user has and they have to be passed to The Book ArrayList "books".
 	         */
 	        if(lineSplit.length > 2) {
 	        	String ls = lineSplit[2].replaceAll("\\{", ""); // The index 2 of line split represents the books id surrounded by "{}".
@@ -155,8 +159,8 @@ public class LibraryCatalog {
 	/**
 	 * This adds a Book with a given title, author and genre on the last index of the Book ArrayList held in the
 	 * private variable "catalog", assigning to each added book an index based on their index position in the ArrayList. 
-	 * It also assigned to each book today's date (September 9, 2023) as its last checked out date and its assumed that
-	 * is not checked out.
+	 * It is also assigned to each book today's date (September 9, 2023) as its last checked out date and its assumed 
+	 * that the book is not checked out.
 	 * 
 	 * @param title String representing the title of the added book.
 	 * @param author String representing the author of the added book.
@@ -167,10 +171,24 @@ public class LibraryCatalog {
 		catalog.add(addedBook);
 	}
 	
+	/** 
+	 * This removes from the Book ArrayList "catalog" a book with a specified id. The books are sorted in ascending
+	 * order so the index position of a book with a specific id is its id minus 1.
+	 *
+	 * @param id id of the book which is going to be removed.
+	 */
 	public void removeBook(int id) {
-		catalog.remove(id);
+		catalog.remove(id-1);
 	}	
 	
+	/**
+	 * This method takes a book of a specific id and checks out it if it is not already checked out. It turns true
+	 * its checked out status and updates the checkout date to today’s (September 15, 2023).
+	 * 
+	 * @param id the id of the book which it is going to be checked out.
+	 * @return true if the book was check out and false if its checked out status was already true  or it does not 
+	 * even exist in the catalog.
+	 */
 	public boolean checkOutBook(int id) {
 		if(catalog.get(id)!=null) {
 			if(!catalog.get(id).isCheckedOut()) {
@@ -180,21 +198,54 @@ public class LibraryCatalog {
 		} return false;
 	}
 	
+	/**
+	 * This method returns a book from this library if it is not already returned and changes its checked out
+	 * status to false.
+	 * 
+	 * @param id the id of the book which it is going to be returned.
+	 * @return true if the book was successfully returned and false if its checked out status was false or it
+	 * does not even exist in the catalog.
+	 */
 	public boolean returnBook(int id) {
-		if(!catalog.get(id).isCheckedOut()) {
-			catalog.get(id).setCheckedOut(true);
+		if(catalog.get(id).isCheckedOut()) {
+			catalog.get(id).setCheckedOut(false);
 			return true;
 		} return false;
 	}
 	
+	/**
+	 * This method returns whether a book of a specified id is available for being checked out.
+	 * 
+	 * @param id the id of the book which its availability of being checked out is going to be evaluated.
+	 * @return true if the book has not been checked out, else it returns false.
+	 */
 	public boolean getBookAvailability(int id) {
-		return true;
+		return !catalog.get(id).isCheckedOut();
 	}
 	
+	/**
+	 * This method returns how many books of a specified title are present in the catalog.
+	 * 
+	 * @param title String which is being searched how many books have it as a title.
+	 * @return number of how many books with a specific title are found.
+	 */
 	public int bookCount(String title) {
+		int count = 0; //This counts how many books of a specified title are found.
+		for(int i = 0; i < catalog.size(); i++) 
+			if(catalog.get(i).getTitle().equals(title)) count++;
+		return count;
+	}
+	
+	/**
+	 * This method returns how many books of a specified genre are present in the catalog.
+	 * 
+	 * @param genre String which is being searched how many books have it as its genre.
+	 * @return number of how many books with a specific genre are found.
+	 */
+	public int bookGenreCount(String genre) {
 		int count = 0; //This counts how many books of a specified genre are found.
 		for(int i = 0; i < catalog.size(); i++) 
-			if(catalog.get(i).getGenre().equals(title)) count++;
+			if(catalog.get(i).getGenre().equals(genre)) count++;
 		return count;
 	}
 	
@@ -212,13 +263,13 @@ public class LibraryCatalog {
 		/**
 		 * In this field it will be printed the amount of books per category.
 		 */
-		output += "Adventure\t\t\t\t\t" + bookCount("Adventure") + "\n"; /*Place here the amount of adventure books*/
-		output += "Fiction\t\t\t\t\t\t" + bookCount("Fiction") + "\n"; /*Place here the amount of fiction books*/
-		output += "Classics\t\t\t\t\t" + bookCount("Classics") + "\n"; /*Place here the amount of classics books*/
-		output += "Mystery\t\t\t\t\t\t" + bookCount("Mystery") + "\n"; /*Place here the amount of mystery books*/
-		output += "Science Fiction\t\t\t\t\t" + bookCount("Science Fiction") + "\n"; /*Place here the amount of science fiction books*/
+		output += "Adventure\t\t\t\t\t" + bookGenreCount("Adventure") + "\n"; 
+		output += "Fiction\t\t\t\t\t\t" + bookGenreCount("Fiction") + "\n"; 
+		output += "Classics\t\t\t\t\t" + bookGenreCount("Classics") + "\n"; 
+		output += "Mystery\t\t\t\t\t\t" + bookGenreCount("Mystery") + "\n"; 
+		output += "Science Fiction\t\t\t\t\t" + bookGenreCount("Science Fiction") + "\n";
 		output += "====================================================\n";
-		output += "\t\t\tTOTAL AMOUNT OF BOOKS\t" + catalog.size() + "\n\n"; /*Place here the total number of books*/
+		output += "\t\t\tTOTAL AMOUNT OF BOOKS\t" + catalog.size() + "\n\n";
 		
 		output += "\t\t\tBOOKS CURRENTLY CHECKED OUT\n\n";
 		
@@ -244,9 +295,8 @@ public class LibraryCatalog {
 		float totalDue = 0.0f;
 		
 		/**
-		 * Here it will be printed all the users that owe money.
-		 * The amount will be calculating taking into account 
-		 * all the books that have late fees.
+		 * Here it will be printed all the users that owe money. The amount will be calculating taking 
+		 * into account all the books that have late fees.
 		 */
 		for(int i = 0; i < getUsers().size(); i++) {
 			float fee = 0.0f;
