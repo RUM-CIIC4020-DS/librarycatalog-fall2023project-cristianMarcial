@@ -3,10 +3,9 @@ package main;
 import interfaces.List;
 
 /**
- * This class represent a user from this library. In this class there are 3 fields: Variables, 
- * Constructor, and Getters and Setters. Variable's field have private variables which store 
- * information about the user. Each variable can be obtained with the methods on the "Getters
- * and Setters" (line 39) field and they are initialized by the Constructor method (line 32).
+ * This class represent a user from this library. In this class, there are private variables which store
+ * information about the user, such their ID, name and the books they have. Each variable can be obtained
+ * with the "Getters and Setters" methods and they are initialized by the Constructor method.
  * 
  * @author Cristian Marcial cristian.marcial@upr.edu
  */
@@ -68,7 +67,7 @@ public class User {
 	/**
 	 * Sets the name of the user with the given argument.
 	 * 
-	 * @param name a String for replacing the previous user's name.
+	 * @param name a string for replacing the previous user's name.
 	 */
 	public void setName(String name) {
 		this.name = name;

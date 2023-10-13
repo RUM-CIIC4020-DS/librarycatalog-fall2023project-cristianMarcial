@@ -143,18 +143,18 @@ public class LibraryCatalog {
 	}
 	
 	/**
-	 * Returns the value held in the private variable "catalog".
+	 * Returns the List of books that the library has.
 	 * 
-	 * @return A Book ArrayList held in the "catalog" variable.
+	 * @return A Book List.
 	 */
 	public List<Book> getBookCatalog() {
 		return catalog;
 	}
 	
 	/**
-	 * Returns the value held in the private variable "users".
+	 * Returns the List of users that the library has.
 	 * 
-	 * @return A User ArrayList held in the "users" variable.
+	 * @return A User List.
 	 */
 	public List<User> getUsers() {
 		return users;
@@ -331,7 +331,7 @@ public class LibraryCatalog {
         try {
             BufferedWriter outputText = new BufferedWriter(new FileWriter("report/report.txt")); // Initializing file
             outputText.write(output); //Writing on it
-            outputText.close(); // Closing file
+            outputText.close(); //Closing file
         } catch (IOException except) { except.printStackTrace(); }
 	}
 	

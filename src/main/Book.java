@@ -4,13 +4,12 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 /**
- * This class represent a single book in this library. In this class there are 4 fields: 
- * Variables, Constructor, Getters and Setters, and General Methods. The Variable's field 
- * have private variables which store information about the books. Each variable can be 
- * obtained and changed with the methods on the "Getters and Setters" (line 51) field and 
- * they are initialized by the constructor method (line 41).
+ * This class represents a single book in this library. In this class, there are private variables which store 
+ * information about the book, such as the ID, the title, author, genre, the last day some user borrowed it and 
+ * its checked out status. Each variable can be obtained and changed with the "Getters and Setters" methods and 
+ * they are initialized by the constructor method.
  * 
- * @author Cristian Marcial cristian.marcial@upr.edu
+ * @author Cristian Marcial cristian.marcial@upr.edu 
  */
 public class Book {
 	
@@ -69,45 +68,45 @@ public class Book {
 	}
 	
 	/**
-	 * Returns the value held in the private variable of its class "title".
+	 * Returns the title of the book.
 	 * 
-	 * @return a String held in the "title" variable.
+	 * @return a string which represents the book's name.
 	 */
 	public String getTitle() {
 		return title;
 	}
 	
 	/**
-	 * Sets the value of the variable "title" with the given argument.
+	 * Sets the title of the book with the given argument.
 	 * 
-	 * @param title a String for replacing the value held in the variable "title".
+	 * @param title a string for replacing the previous book's title.
 	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
 	
 	/**
-	 * Returns the value held in the private variable of its class "author".
+	 * Returns the author of the book.
 	 * 
-	 * @return a String held in the "author" variable.
+	 * @return a string which represents the book's author.
 	 */
 	public String getAuthor() {
 		return author;
 	}
 	
 	/**
-	 * Sets the value of the variable "author" with the given argument.
+	 * Sets the author of the book with the given argument.
 	 * 
-	 * @param author a String for replacing the value held in the variable "author".
+	 * @param author a string for replacing the previous book's author.
 	 */
 	public void setAuthor(String author) {
 		this.author = author;
 	}
 	
 	/**
-	 * Returns the value held in the private variable of its class "genre".
+	 * Returns the genre which the book belongs.
 	 * 
-	 * @return a String held in the "genre" variable.
+	 * @return a string which represents the book's genre.
 	 */
 	public String getGenre() {
 		return genre;
@@ -123,9 +122,9 @@ public class Book {
 	}
 	
 	/**
-	 * Returns the value held in the private variable of its class "lastCheckOutDate".
+	 * Returns the last date which a user borrowed the book.
 	 * 
-	 * @return a value of LocalDate Class held in the "lastCheckOutDate" variable.
+	 * @return a value of LocalDate Class which represents the last date which someone borrowed the book.
 	 */
 	public LocalDate getLastCheckOut() {
 		return lastCheckOutDate;
@@ -150,9 +149,9 @@ public class Book {
 	}
 	
 	/**
-	 * Sets the value of the variable "checkedOut" with the given argument.
+	 * Sets the checked out status of the book with the given argument.
 	 * 
-	 * @param checkedOut a boolean for replacing the value held in the variable "checkedOut".
+	 * @param checkedOut a boolean value for replacing the previous book's checked out status.
 	 */
 	public void setCheckedOut(boolean checkedOut) {
 		this.checkedOut = checkedOut;
