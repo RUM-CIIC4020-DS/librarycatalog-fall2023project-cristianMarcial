@@ -42,7 +42,7 @@ public class LibraryCatalog {
 	//Getters, Setters and other general methods
 	
 	/**
-	 * This method will read the file catalog.csv in the data folder and then it will generate a Book ArrayList 
+	 * This method reads the file catalog.csv in the data folder and then it generates a Book ArrayList 
 	 * which it is going to be returned; the Book ArrayList contains the books of the library. An ArrayList was 
 	 * used to hold the books since it was only used the add() member method of the ArrayList to put the books on
 	 * it, and that satisfy what it is needed to have all the books from the file.
@@ -91,7 +91,7 @@ public class LibraryCatalog {
 	}
 	
 	/**
-	 * This method will read the file users.csv in the data folder and then it will generate a User ArrayList which its 
+	 * This method reads the file users.csv in the data folder and then it generates a User ArrayList which its 
 	 * going to be returned. the User ArrayList contains the books of the library. An ArrayList was used to hold the users
 	 * since it was only used the add() member method of the ArrayList to place the users on it, and that satisfy what it is
 	 * needed to have all the user from the file.
