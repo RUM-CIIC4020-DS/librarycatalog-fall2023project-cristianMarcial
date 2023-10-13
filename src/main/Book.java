@@ -51,18 +51,18 @@ public class Book {
 	//Getters and Setters
 	
 	/**
-	 * Returns the value held in the private variable of its class "id".
+	 * Returns the id of the book.
 	 * 
-	 * @return the id of the book held in the "id" variable.
+	 * @return an integer representing the id of the book.
 	 */
 	public int getId() {
 		return id;
 	}
 	
 	/**
-	 * Sets the value of the variable "id" with the given argument.
+	 * Sets the id of the book with the given argument.
 	 * 
-	 * @param id a String for replacing the value held in the variable "id".
+	 * @param id an integer for replacing the previous id of the book.
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -114,9 +114,9 @@ public class Book {
 	}
 	
 	/**
-	 * Sets the value of the variable "genre" with the given argument.
+	 * Sets the genre of the book with the given argument.
 	 * 
-	 * @param genre a String for replacing the value held in the variable "genre".
+	 * @param genre a String for replacing the previous genre which the book belonged.
 	 */
 	public void setGenre(String genre) {
 		this.genre = genre;
@@ -132,19 +132,18 @@ public class Book {
 	}
 	
 	/**
-	 * Sets the value of the  variable "lastCheckOutDate" with the given argument.
+	 * Sets the value of the variable "lastCheckOutDate" with the given argument.
 	 * 
-	 * @param lastCheckOut a value of LocalDate Class for replacing the value held in the
-	 * variable "lastCheckOut".
+	 * @param lastCheckOut a value of LocalDate Class for replacing the previous last checked out date.
 	 */
 	public void setLastCheckOut(LocalDate lastCheckOut) {
 		this.lastCheckOutDate = lastCheckOut;
 	}
 	
 	/**
-	 * This checks if the book was checked out or not.
+	 * Checks if the book was checked out or not.
 	 * 
-	 * @return the private variable of its class "checkedOut".
+	 * @return checked out status of the book.
 	 */
 	public boolean isCheckedOut() {
 		return checkedOut;

@@ -15,7 +15,7 @@ public class User {
 	//Variables
 	
 	/**
-	 * This holds a Integer ID which represents every user.
+	 * This holds a Integer ID which represents each user.
 	 */
 	private int id;
 	
@@ -25,7 +25,7 @@ public class User {
 	private String name;
 	
 	/**
-	 * This is a List which holds elements of the Book Class.
+	 * List which holds elements of the Book Class.
 	 */
 	private List<Book> books;
 	
@@ -39,54 +39,54 @@ public class User {
 	//Getters and Setters
 	
 	/**
-	 * Returns the value held in the private variable of its class "id".
+	 * Returns the id of the user.
 	 * 
-	 * @return the id of the book held in the variable "id".
+	 * @return an integer representing the id of the user.
 	 */
 	public int getId() {
 		return id;
 	}
 	
 	/**
-	 * Sets the value of the local variable "id" with the given argument.
+	 * Sets the id of the user with the given argument.
 	 * 
-	 * @param id an integer for replacing the value held in the variable "id".
+	 * @param id an integer for replacing the previous id of the user.
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 	
 	/**
-	 * Returns the value held in the private variable of its class "name".
+	 * Returns the name of the user.
 	 * 
-	 * @return a String held in the variable "name".
+	 * @return a String which represents the user's name.
 	 */
 	public String getName() {
 		return name;
 	}
 	
 	/**
-	 * Sets the value of the local variable "name" with the given argument.
+	 * Sets the name of the user with the given argument.
 	 * 
-	 * @param name a String for replacing the value held in the variable "name".
+	 * @param name a String for replacing the previous user's name.
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
 	/**
-	 * Returns The List held in the private variable of its class "book".
+	 * Returns The List of the books which the user has.
 	 * 
-	 * @return A List held in the "books" variable.
+	 * @return A List of books.
 	 */
 	public List<Book> getCheckedOutList() {
 		return books;
 	}
 	
 	/**
-	 * Replace The List of the local variable "books" with the given argument.
+	 * Replace The List of books which the user has with a new one.
 	 * 
-	 * @param checkedOutList A List for replacing the value held in the variable "books".
+	 * @param checkedOutList A List of books for replacing the current Book List of the user.
 	 */
 	public void setCheckedOutList(List<Book> checkedOutList) {
 		this.books = checkedOutList;
