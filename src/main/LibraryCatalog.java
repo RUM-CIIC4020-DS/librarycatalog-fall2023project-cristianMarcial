@@ -15,12 +15,12 @@ import interfaces.FilterFunction;
 import interfaces.List;
 
 /**
- * This class make use of the ArrayList Class to store in two private variables the user list (users) and the 
- * book list (catalog) written in the files from the data folder. This files are loaded and then stored in 
- * their respective variables by two separated methods: getBookFromFiles() and getUsersFromFiles(). In order to 
- * realize this action, the BufferedReader Class is used. Finally, when they are already stored, a report about 
- * the library and its books is written in a separated text file called "report.txt"; in order to do this, the 
- * BufferedWrite Class was used.
+ * This class manages all the books in the catalog and any operation related to them. This make use of the ArrayList
+ * Class to store in two private variables the user list (users) and the book list (catalog) written in the files from 
+ * the data folder. This files are loaded and then stored in their respective variables by two separated methods: 
+ * getBookFromFiles() and getUsersFromFiles(). In order to realize this action, the BufferedReader Class is used. Finally,
+ * when they are already stored, a report about the library and its books is written in a separated text file called 
+ * "report.txt" placed on the "report" folder; in order to do this, the BufferedWrite Class was used.
  * 
  * @author Cristian Marcial cristian.marcial@upr.edu
  */
@@ -43,7 +43,9 @@ public class LibraryCatalog {
 	
 	/**
 	 * This method will read the file catalog.csv in the data folder and then it will generate a Book ArrayList 
-	 * which it is going to be returned.
+	 * which it is going to be returned; the Book ArrayList contains the books of the library. An ArrayList was 
+	 * used to hold the books since it was only used the add() member method of the ArrayList to put the books on
+	 * it, and that satisfy what it is needed to have all the books from the file.
 	 * 
 	 * @return "bookList" variable which is the Book ArrayList generated.
 	 */
@@ -64,9 +66,9 @@ public class LibraryCatalog {
 		String currentLine;
 		line.readLine(); //The first line don't represent a book, so is iterated before the following loop starts.
         
-		/*
+		/**
 		 * This while loop iterates through every line until reaches the end of the document (which there is no more lines,
-		 * so currentLine is null). Inside of it there is the variable "lineSplit", which divides "currentLine" variable from
+		 * so currentLine is null). Inside of it, there is the variable "lineSplit", which divides "currentLine" variable from
 		 * the line's commas in order to have each book parameters in separated strings inside a String Array. The fifty 
 		 * parameter of the book Class have a date, which in the document it is separated by 2 "-" so lineSplit[4] has to be 
 		 * split in a String Array of 3 indexes called "ls4" which its 3 indexes represent a year, a month and a day.
@@ -90,7 +92,9 @@ public class LibraryCatalog {
 	
 	/**
 	 * This method will read the file users.csv in the data folder and then it will generate a User ArrayList which its 
-	 * going to be returned.
+	 * going to be returned. the User ArrayList contains the books of the library. An ArrayList was used to hold the users
+	 * since it was only used the add() member method of the ArrayList to place the users on it, and that satisfy what it is
+	 * needed to have all the user from the file.
 	 * 
 	 * @return "userList" variable which is the User ArrayList generated.
 	 */
@@ -157,9 +161,9 @@ public class LibraryCatalog {
 	}
 	
 	/**
-	 * This adds a Book with a given title, author and genre on the last index of the Book ArrayList held in the
-	 * private variable "catalog", assigning to each added book an index based on their index position in the ArrayList. 
-	 * It is also assigned to each book today's date (September 9, 2023) as its last checked out date and its assumed 
+	 * Adds a Book with a given title, author and genre on the last index of the Book ArrayList held in the private 
+	 * variable "catalog", assigning to each added book an index based on their index position in the ArrayList. It 
+	 * is also assigned to each book today's date (September 9, 2023) as its last checked out date and its assumed 
 	 * that the book is not checked out.
 	 * 
 	 * @param title String representing the title of the added book.
@@ -172,8 +176,8 @@ public class LibraryCatalog {
 	}
 	
 	/** 
-	 * This removes from the Book ArrayList "catalog" a book with a specified id. The books are sorted in ascending
-	 * order so the index position of a book with a specific id is its id minus 1.
+	 * Removes from the Book ArrayList "catalog" a book with a specified id. The books are sorted in ascending order
+	 * so the index position of a book with a specific id is its id minus 1.
 	 *
 	 * @param id id of the book which is going to be removed.
 	 */
@@ -182,51 +186,52 @@ public class LibraryCatalog {
 	}	
 	
 	/**
-	 * This method takes a book of a specific id and checks out it if it is not already checked out. It turns true
-	 * its checked out status and updates the checkout date to today’s (September 15, 2023).
+	 * Takes a book of a specific id and checks out it if it is not already checked out. It turns true its checked 
+	 * out status and updates the checkout date to today’s (September 15, 2023).
 	 * 
 	 * @param id the id of the book which it is going to be checked out.
 	 * @return true if the book was check out and false if its checked out status was already true  or it does not 
 	 * even exist in the catalog.
 	 */
 	public boolean checkOutBook(int id) {
-		if(catalog.get(id)!=null) {
-			if(!catalog.get(id).isCheckedOut()) {
-				catalog.get(id).setLastCheckOut(LocalDate.of(2023, 9, 15));
+		if(catalog.get(id-1)!=null) {
+			if(!catalog.get(id-1).isCheckedOut()) {
+				catalog.get(id-1).setLastCheckOut(LocalDate.of(2023, 9, 15));
 				return true;
 			}
 		} return false;
 	}
 	
 	/**
-	 * This method returns a book from this library if it is not already returned and changes its checked out
-	 * status to false.
+	 * Returns a book from this library if it is not already returned and changes its checked out status to false.
 	 * 
 	 * @param id the id of the book which it is going to be returned.
 	 * @return true if the book was successfully returned and false if its checked out status was false or it
 	 * does not even exist in the catalog.
 	 */
 	public boolean returnBook(int id) {
-		if(catalog.get(id).isCheckedOut()) {
-			catalog.get(id).setCheckedOut(false);
-			return true;
+		if(catalog.get(id-1)!=null) {
+			if(catalog.get(id-1).isCheckedOut()) {
+				catalog.get(id-1).setCheckedOut(false);
+				return true;
+			} 
 		} return false;
 	}
 	
 	/**
-	 * This method returns whether a book of a specified id is available for being checked out.
+	 * Returns whether a book of a specified id is available for being checked out.
 	 * 
 	 * @param id the id of the book which its availability of being checked out is going to be evaluated.
 	 * @return true if the book has not been checked out, else it returns false.
 	 */
 	public boolean getBookAvailability(int id) {
-		return !catalog.get(id).isCheckedOut();
+		return !catalog.get(id-1).isCheckedOut();
 	}
 	
 	/**
-	 * This method returns how many books of a specified title are present in the catalog.
+	 * Returns how many books of a specified title are present in the catalog.
 	 * 
-	 * @param title String which is being searched how many books have it as a title.
+	 * @param title string which is being searched how many books have it as a title.
 	 * @return number of how many books with a specific title are found.
 	 */
 	public int bookCount(String title) {
@@ -237,9 +242,9 @@ public class LibraryCatalog {
 	}
 	
 	/**
-	 * This method returns how many books of a specified genre are present in the catalog.
+	 * Returns how many books of a specified genre are present in the catalog.
 	 * 
-	 * @param genre String which is being searched how many books have it as its genre.
+	 * @param genre string which is being searched how many books have it as its genre.
 	 * @return number of how many books with a specific genre are found.
 	 */
 	public int bookGenreCount(String genre) {
@@ -250,8 +255,8 @@ public class LibraryCatalog {
 	}
 	
 	/**
-	 * This method store in a String called output a report about the content which is currently in the library. 
-	 * Later, the content of the output variable is displayed in a text file called report.txt; the content of it 
+	 * Store in a string called output a report about the content which is currently in the library. Later, 
+	 * the content of the output variable is displayed in a text file called report.txt; the content of it 
 	 * is written by making use of the BufferedWrite Class.
 	 */
 	public void generateReport() throws IOException {
